@@ -1,8 +1,10 @@
-name: Build love android
-id: build-love
 on: push
-uses: love-actions/love-actions-android@v1
-with:
-  app-name: "My Love Game"
-  bundle-id: "org.love2d.my_game"
-  resource-path: "./assets/android/res"
+
+jobs:
+  steps:
+    uses: love-actions/love-actions-android@v1
+    name: Build love android
+    with:
+      app-name: "My Love Game"
+      bundle-id: "org.love2d.my_game"
+      resource-path: "./assets/android/res"
