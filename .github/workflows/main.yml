@@ -1,2 +1,7 @@
-- name: Love actions for Android
-  uses: love-actions/love-actions-android@v1.1.3
+- name: Build love android
+  id: build-love
+  uses: love-actions/love-actions-android@v1
+  with:
+    app-name: "My Love Game"
+    bundle-id: "org.love2d.my_game"
+    resource-path: "./assets/android/res"
