@@ -1,5 +1,6 @@
 name: Build love android
 id: build-love
+on: push
 uses: love-actions/love-actions-android@v1
 with:
   app-name: "My Love Game"
