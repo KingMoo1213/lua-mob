@@ -1,16 +1,59 @@
 on: push
 
+env:
+  BUILD_TYPE: ${{ fromJSON('["dev", "release"]')[startsWith(github.ref, 'refs/tags/v')] }}
+  CORE_LOVE_PACKAGE_PATH: ./core.love
+  CORE_LOVE_ARTIFACT_NAME: core_love_package
+  PRODUCT_NAME: my_love_app
+  BUNDLE_ID: com.example.myloveapp
+
 jobs:
-  love_build:
+  build-core:
     runs-on: ubuntu-latest
     env:
       OUTPUT_FOLDER: ./build
     steps:
-      - name: Checkout project
-        uses: actions/checkout@v2
-      - name: Love actions for Android
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Build core love package
+        uses: love-actions/love-actions-core@v1
+        with:
+          build-list: ./main.lua
+          package-path: ${{ env.CORE_LOVE_PACKAGE_PATH }}
+      - name: Upload core love package
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.CORE_LOVE_ARTIFACT_NAME }}
+          path: ${{ env.CORE_LOVE_PACKAGE_PATH }}
+  build-android:
+    runs-on: ubuntu-latest
+    needs: [build-core, auto-test]
+    env:
+      OUTPUT_FOLDER: ./build
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      # Download your core love package here
+      - name: Download core love package
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.CORE_LOVE_ARTIFACT_NAME }}
+      - name: Build Android packages
+        id: build-packages
         uses: love-actions/love-actions-android@v1.1.3
         with:
-          app-name: "My Love Game"
-          bundle-id: "org.love2d.my_game"
-          resource-path: "./assets/android/res"
+          app-name: ${{ env.PRODUCT_NAME }}
+          bundle-id: ${{ env.BUNDLE_ID }}
+          love-package: ${{ env.CORE_LOVE_PACKAGE_PATH }}
+          resource-path: ./assets/android/res
+          product-name: ${{ env.PRODUCT_NAME }}
+          version-string: "1.0.0"
+          version-code: 100
+          output-folder: ${{ env.OUTPUT_FOLDER }}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ needs.get-info.outputs.base-name }}_Android_release
+          path: ${{ env.OUTPUT_FOLDER }}/${{ env.PRODUCT_NAME }}-release.apk
