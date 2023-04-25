@@ -2,6 +2,9 @@ on: push
 
 jobs:
   love_build:
+    runs-on: ubuntu-latest
+    env:
+      OUTPUT_FOLDER: ./build
     steps:
       - name: Love actions for Android
         uses: love-actions/love-actions-android@v1.1.3
