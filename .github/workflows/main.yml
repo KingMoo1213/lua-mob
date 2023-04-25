@@ -13,4 +13,4 @@ jobs:
         with:
           app-name: "My Love Game"
           bundle-id: "org.love2d.my_game"
-          resource-path: "./assets"
+          resource-path: "./assets/android/res"
