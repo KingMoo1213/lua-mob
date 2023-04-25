@@ -2,7 +2,7 @@ function love.load()
   love.window.setTitle("Lua Test")
   love.graphics.setBackgroundColor(192, 192, 192) -- silver background
   love.graphics.setColor(255, 215, 0) -- golden circle
-  love.graphics.setCircleSegments(100) -- smooth circle
+  -- love.graphics.setCircleSegments(100) -- smooth circle
 end
 
 function love.draw()
