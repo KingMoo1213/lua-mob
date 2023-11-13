@@ -1,5 +1,5 @@
 function love.load()
-  love.window.setTitle("Lua Test")
+  love.window.setTitle("Lua Test App")
   love.graphics.setBackgroundColor(192/255, 192/255, 192/255) -- silver background
 end
 
