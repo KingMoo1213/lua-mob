@@ -1,6 +1,8 @@
 function love.load()
   love.window.setTitle("Lua Test App")
 
+  love.window.setMode(0, 0, true)
+
 -- Hide the status bar
   -- local display = require("display")
   -- display.setStatusBar(display.HiddenStatusBar)
