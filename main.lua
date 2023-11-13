@@ -1,5 +1,10 @@
+local display = require("display")
+
 function love.load()
   love.window.setTitle("Lua Test App")
+
+-- Hide the status bar
+display.setStatusBar(display.HiddenStatusBar)
   love.graphics.setBackgroundColor(192/255, 192/255, 192/255) -- silver background
 end
 
