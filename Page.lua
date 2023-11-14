@@ -17,6 +17,10 @@ function Page:new(name, backgroundColor)
     return this
 end
 
+function Page:init()
+    -- Init here
+end
+
 function Page:touchpressed(id, x, y, dx, dy, pressure)
     -- implement this in child class
 end
