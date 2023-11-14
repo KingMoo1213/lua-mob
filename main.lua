@@ -21,7 +21,14 @@ function love.load()
   -- display.setStatusBar(display.HiddenStatusBar)
   love.graphics.setBackgroundColor(192/255, 192/255, 192/255) -- silver background
 
-    PageManager:switchTo("splash") 
+  InputManager:init()
+
+    PageManager:switchTo("splash")
+end
+
+function love.update(dt)
+    InputManager:update(dt)
+    -- Other update code
 end
 
 function love.draw()
@@ -30,4 +37,17 @@ function love.draw()
   --love.graphics.setColor(64/255, 64/255, 64/255) -- dark grey text
   --love.graphics.print("This is a Lua test", 10, 10) -- dark grey text at top-left corner
     PageManager:render()
+end
+
+
+function love.touchpressed(id, x, y, dx, dy, pressure)
+    InputManager:touchpressed(id, x, y, dx, dy, pressure)
+    -- Pass the touch to the current page
+    PageManager.currentPage:touchpressed(id, x, y, dx, dy, pressure)
+end
+
+function love.touchreleased(id, x, y, dx, dy, pressure)
+    InputManager:touchreleased(id, x, y, dx, dy, pressure)
+    -- Pass the touch to the current page
+    PageManager.currentPage:touchreleased(id, x, y, dx, dy, pressure)
 end
