@@ -1,10 +1,12 @@
+local ColorUtils = require "ColorUtils"
+
 Page = {}
 Page.__index = Page
 
 function Page:new(name, backgroundColor)
     local this = {
         name = name,
-        backgroundColor = backgroundColor,
+        backgroundColor = ColorUtils.convertColor(backgroundColor),
         padding = 10,
         fontSize = 24
     }
