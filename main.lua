@@ -1,4 +1,5 @@
 require "PageManager"
+local ImageManager = require "ImageManager"
 
 function love.conf(t)
     t.window.title = "My Game"        -- The title of the window the game is in (string)
@@ -22,6 +23,8 @@ function love.load()
   love.graphics.setBackgroundColor(192/255, 192/255, 192/255) -- silver background
 
   InputManager:init()
+
+    ImageManager.load("splash_image", "assets/raw/splash.png") 
 
     PageManager:switchTo("splash")
 end
