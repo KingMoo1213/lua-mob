@@ -8,8 +8,7 @@ MenuScreen = Page:new("Menu Screen", {0.5, 0.5, 0.5}) -- Example initialization
 -- Variable to hold display text
 MenuScreen.displayText = ""
 
-function MenuScreen:touchreleased(id, x, y, dx, dy, pressure)
-    local touchInfo = InputManager:touchreleased(id, x, y, dx, dy, pressure)
+function MenuScreen:touchreleased(touchInfo)
     self.displayText = "Released - Event: " .. touchInfo.eventType .. ",\n Duration: " .. tostring(touchInfo.duration)
 
     if touchInfo.eventType == "press" then
