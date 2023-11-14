@@ -3,7 +3,7 @@ require "InputManager"
 local AnimationManager = require "AnimationManager"
 local ImageManager = require "ImageManager"
 
-SplashScreen = Page:new("Splash Screen", {0.5, 0.5, 0.5})
+SplashScreen = Page:new("Splash Screen", "lightblue")
 
 function SplashScreen:init()
     -- Retrieve the image by its unique name
