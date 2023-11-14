@@ -14,6 +14,7 @@ function AnimationManager.createSlideAndFadeAnimation(image, duration, startX, s
 end
 
 function AnimationManager.update(animation, dt)
+    if animation == nil then return end
     if not animation.isActive then return end
 
     animation.currentTime = animation.currentTime + dt
@@ -29,6 +30,7 @@ function AnimationManager.update(animation, dt)
 end
 
 function AnimationManager.draw(animation)
+    if animation == nil then return end
     if not animation.isActive then return end
 
     love.graphics.setColor(1, 1, 1, animation.alpha)
