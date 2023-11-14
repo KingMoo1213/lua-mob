@@ -3,8 +3,7 @@ require "InputManager"
 
 SplashScreen = Page:new("Splash Screen", "blue")
 
-function SplashScreen:touchreleased(id, x, y, dx, dy, pressure)
-    local touchInfo = InputManager:touchreleased(id, x, y, dx, dy, pressure)
+function SplashScreen:touchreleased(touchInfo)
     if touchInfo.eventType == "tap" then
         -- Logic for tap
         PageManager:switchTo("menu")
