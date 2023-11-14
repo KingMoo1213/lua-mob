@@ -13,6 +13,7 @@ PageManager = {
 
 function PageManager:switchTo(pageName)
     self.currentPage = self.pages[pageName]
+    self.currentPage:init()
 end
 
 function PageManager:render()
