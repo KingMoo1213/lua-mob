@@ -23,25 +23,38 @@ function InputManager:touchpressed(id, x, y, dx, dy, pressure)
 end
 
 function InputManager:touchreleased(id, x, y, dx, dy, pressure)
-    self.isTouching = false
-    self.endX, self.endY = x, y
+    local eventType
+    local swipeDirection = nil
+    local distanceX = x - self.startX
+    local distanceY = y - self.startY
 
-    local distanceX = self.endX - self.startX
-    local distanceY = self.endY - self.startY
-
-    -- Check for swipe
+    -- Determine event type
     if math.abs(distanceX) > self.swipeThreshold or math.abs(distanceY) > self.swipeThreshold then
-        -- Handle swipe logic here
+        eventType = "swipe"
+        swipeDirection = self:getSwipeDirection(distanceX, distanceY)
     elseif self.touchTimer < self.touchThreshold then
-        -- Handle tap logic here
+        eventType = "tap"
+    else
+        eventType = "press"
     end
 
+    local touchInfo = {
+        eventType = eventType,
+        duration = self.touchTimer,
+        startX = self.startX,
+        endX = x,
+        startY = self.startY,
+        endY = y,
+        swipeDirection = swipeDirection
+    }
+
+    self.isTouching = false
     self.touchTimer = 0
+
+    return touchInfo
 end
 
-function InputManager:getSwipeDirection()
-    local dx = self.endX - self.startX
-    local dy = self.endY - self.startY
+function InputManager:getSwipeDirection(dx, dy)
     if math.abs(dx) > math.abs(dy) then
         return (dx > 0) and 'right' or 'left'
     else
