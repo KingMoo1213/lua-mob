@@ -1,3 +1,5 @@
+require "pagemanager"
+
 function love.conf(t)
     t.window.title = "My Game"        -- The title of the window the game is in (string)
     t.window.width = 640              -- The window width (number)
