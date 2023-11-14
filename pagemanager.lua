@@ -5,9 +5,9 @@ require "gamescreen"
 PageManager = {
     currentPage = nil,
     pages = {
-        splash = splashscreen,
-        menu = menuscreen,
-        game = gamescreen
+        splash = SplashScreen,
+        menu = MenuScreen,
+        game = GameScreen
     }
 }
 
