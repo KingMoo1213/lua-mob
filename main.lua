@@ -1,4 +1,4 @@
-require "pagemanager"
+require "PageManager"
 
 function love.conf(t)
     t.window.title = "My Game"        -- The title of the window the game is in (string)
