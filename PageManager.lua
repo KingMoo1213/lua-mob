@@ -1,6 +1,6 @@
-require "splashscreen"
-require "menuscreen"
-require "gamescreen"
+require "SplashScreen"
+require "MenuScreen"
+require "GameScreen"
 
 PageManager = {
     currentPage = nil,
