@@ -15,6 +15,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
+      - name: Lua Syntax Check
+        uses: leafo/gh-actions-lua@v8
+        with:
+          run: luacheck .
       - name: Build core love package
         uses: love-actions/love-actions-core@v1
         with:
@@ -34,6 +38,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
+      - name: Lua Syntax Check
+        uses: leafo/gh-actions-lua@v8
+        with:
+          run: luacheck .
       # Download your core love package here
       - name: Download core love package
         uses: actions/download-artifact@v3
