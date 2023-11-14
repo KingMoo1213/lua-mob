@@ -12,5 +12,8 @@ end
 
 function Page:render()
     -- Render the background color
+    Example: love.graphics.setBackgroundColor(self.backgroundColor)
+
     -- Render the page name at the top
+    love.graphics.print(self.name, 0,0)
 end
