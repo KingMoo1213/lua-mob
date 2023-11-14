@@ -8,7 +8,8 @@ SplashScreen = Page:new("Splash Screen", {0.5, 0.5, 0.5})
 function SplashScreen:init()
     local image = ImageManager.get("splash_image")
     local screenWidth, screenHeight = love.graphics.getDimensions()
-    local imageX = (screenWidth - image:getWidth()) / 2
+    local scale = math.min(screenWidth / image:getWidth(), screenHeight / image:getHeight()) 
+    local imageX = ((screenWidth - image:getWidth()) / 2) *scale
     local imageY = screenHeight
     local targetY = 0
 
@@ -20,6 +21,8 @@ function SplashScreen:init()
         duration = 3,
         loopType = "none"
     })
+
+    self.name = imageY + "_" + targetY
 end
 
 function SplashScreen:update(dt)
@@ -36,9 +39,14 @@ function SplashScreen:render()
     local anim = self.splashAnimation
     local image = ImageManager.get("splash_image")
 
-    -- Apply the animation's properties to the image
+    -- Calculate scale factor to fit the image on the screen
+    local screenWidth, screenHeight = love.graphics.getDimensions()
+    local scale = math.min(screenWidth / image:getWidth(), screenHeight / image:getHeight())
+
+    -- Apply the animation's properties and scale to the image
     love.graphics.setColor(1, 1, 1, anim.target.alpha)
-    love.graphics.draw(image, anim.target.x, anim.target.y)
+    love.graphics.draw(image, anim.target.x, anim.target.y, 0, scale, scale)
     love.graphics.setColor(1, 1, 1, 1) -- Resetting the color
 end
+
 
