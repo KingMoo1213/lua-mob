@@ -2,6 +2,7 @@ require "Page"
 require "InputManager"
 
 GameScreen = Page:new("Game Screen", {0.5, 0.5, 0.5}) -- Starting with a gray background
+GameScreen.displayText = ""
 
 function GameScreen:render()
     -- Call the base render method
@@ -9,11 +10,17 @@ function GameScreen:render()
 
     -- Add game-specific rendering here
     -- For example, rendering swipe direction or other game elements
+
+    -- Render the display text in the center of the screen
+    local textWidth = self.font:getWidth(self.displayText)
+    local textX = (love.graphics.getWidth() - textWidth) / 2
+    local textY = (love.graphics.getHeight() / 2)
+
+    love.graphics.setColor(1, 1, 1) -- White color
+    love.graphics.print(self.displayText, textX, textY)
 end
 
-function GameScreen:touchreleased(id, x, y, dx, dy, pressure)
-    local touchInfo = InputManager:touchreleased(id, x, y, dx, dy, pressure)
-    
+function GameScreen:touchreleased(touchInfo)
     if touchInfo.eventType == "swipe" then
         -- Handle swipe logic
         -- Example: Display the swipe direction
