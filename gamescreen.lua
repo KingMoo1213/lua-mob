@@ -1,6 +1,6 @@
 require "Page"
 
-GameScreen = Page:new("Game Screen", "blue")
+GameScreen = Page:new("Game Screen", "orange")
 
 function GameScreen:render()
     -- Custom rendering for the game screen
