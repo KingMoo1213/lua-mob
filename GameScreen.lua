@@ -12,19 +12,18 @@ function GameScreen:render()
 end
 
 function GameScreen:touchreleased(id, x, y, dx, dy, pressure)
-    if InputManager.touchTimer < InputManager.touchThreshold then
-        -- Change background color on tap
-        self.backgroundColor = {
-            math.random(), -- Random red component
-            math.random(), -- Random green component
-            math.random()  -- Random blue component
-        }
-    else
-        -- Handle swipe
-        local direction = InputManager:getSwipeDirection()
-        -- Display the swipe direction
-        self.name = "Swiped: " .. direction
+    local touchInfo = InputManager:touchreleased(id, x, y, dx, dy, pressure)
+    
+    if touchInfo.eventType == "swipe" then
+        -- Handle swipe logic
+        -- Example: Display the swipe direction
+        self.displayText = "Swiped: " .. touchInfo.swipeDirection
+    elseif touchInfo.eventType == "tap" then
+        -- Handle tap logic
+        -- Example: Change background color
+        self.backgroundColor = {math.random(), math.random(), math.random()}
     end
 end
+
 
 return GameScreen
