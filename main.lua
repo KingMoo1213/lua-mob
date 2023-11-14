@@ -32,6 +32,9 @@ end
 function love.update(dt)
     InputManager:update(dt)
     -- Other update code
+    if PageManager.currentPage.update then
+        PageManager.currentPage:update(dt)
+    end
 end
 
 function love.draw()
