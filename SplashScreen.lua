@@ -1,3 +1,5 @@
+require "Page"
+require "InputManager"
 local AnimationManager = require "AnimationManager"
 local ImageManager = require "ImageManager"
 
