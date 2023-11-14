@@ -19,6 +19,9 @@ function AnimationManager.update(animation, dt)
 
     animation.currentTime = animation.currentTime + dt
     local progress = animation.currentTime / animation.duration
+    if progress > 1 then
+        progress = 1
+    end
 
     animation.currentX = animation.startX + (animation.endX - animation.startX) * progress
     animation.currentY = animation.startY + (animation.endY - animation.startY) * progress
