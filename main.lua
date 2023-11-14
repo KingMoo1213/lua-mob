@@ -47,7 +47,7 @@ function love.touchpressed(id, x, y, dx, dy, pressure)
 end
 
 function love.touchreleased(id, x, y, dx, dy, pressure)
-    InputManager:touchreleased(id, x, y, dx, dy, pressure)
+    local touchInfo = InputManager:touchreleased(id, x, y, dx, dy, pressure)
     -- Pass the touch to the current page
-    PageManager.currentPage:touchreleased(id, x, y, dx, dy, pressure)
+    PageManager.currentPage:touchreleased(touchInfo)
 end
