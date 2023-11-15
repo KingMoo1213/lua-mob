@@ -8,8 +8,8 @@ function Image:new(params)
         image = ImageManager.get(params.name), -- Get image from ImageManager
         x = params.x or 0,
         y = params.y or 0,
-        scaleX = params.scaleX or 1,
-        scaleY = params.scaleY or 1,
+        scaleX = params.scaleX or params.scale or 1,
+        scaleY = params.scaleY or params.scale or 1,
         rotation = params.rotation or 0,
         alpha = params.alpha or 1,
         tint = params.tint or {1, 1, 1}
