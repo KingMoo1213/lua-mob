@@ -5,7 +5,7 @@ function love.conf(t)
     t.window.title = "My Game"        -- The title of the window the game is in (string)
     t.window.width = 640              -- The window width (number)
     t.window.height = 1136             -- The window height (number)
-    t.window.fullscreen = true       -- Enable fullscreen (boolean)
+    t.window.fullscreen = false       -- Enable fullscreen (boolean)
     t.window.fullscreentype = "normal" -- Standard fullscreen or desktop fullscreen mode
     t.window.vsync = 1                -- Vertical sync mode
     t.window.fsaa = 0                 -- The number of samples to use with multi-sampled antialiasing
@@ -15,7 +15,7 @@ end
 function love.load()
   love.window.setTitle("Lua Test App")
 
-  love.window.setMode(1, 2, {fullscreen = true})
+  -- love.window.setMode(1, 2, {fullscreen = false})
 
 -- Hide the status bar
   -- local display = require("display")

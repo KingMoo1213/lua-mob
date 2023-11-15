@@ -26,6 +26,26 @@ function Image:update(params)
     end
 end
 
+function Image:setPosition(x, y)
+    self.x, self.y = x, y
+end
+
+function Image:setScale(scaleX, scaleY)
+    self.scaleX, self.scaleY = scaleX, scaleY or scaleX
+end
+
+function Image:setRotation(rotation)
+    self.rotation = rotation
+end
+
+function Image:setAlpha(alpha)
+    self.alpha = alpha
+end
+
+function Image:setTint(r, g, b)
+    self.tint = {r, g, b}
+end
+
 function Image:draw()
     love.graphics.setColor(self.tint[1], self.tint[2], self.tint[3], self.alpha)
     love.graphics.draw(self.image, self.x, self.y, self.rotation, self.scaleX, self.scaleY)

@@ -13,8 +13,9 @@ function SplashScreen:init()
 
     local screenWidth, screenHeight = love.graphics.getDimensions()
     local imageWidth, imageHeight = self.splashImage.image:getWidth(), self.splashImage.image:getHeight()
+    local imagepadding = 120
 
-    local scale = math.min(screenWidth / imageWidth, screenHeight / imageHeight)
+    local scale = math.min((screenWidth - imagepadding) / imageWidth, (screenHeight - imagepadding) / imageHeight)
     self.splashImage:setScale(scale)
     self.splashImage:setPosition((screenWidth - imageWidth * scale) / 2, screenHeight)
 
@@ -26,13 +27,13 @@ function SplashScreen:init()
             alpha = {startValue = 0, endValue = 1}
         },
         duration = 3
-    })
+    }, true)
 end
 
 function SplashScreen:update(dt)
     AnimationManager.update(self.animation, dt)
 
-    if self.animation.isCompleted then
+    if self.animation.isComplete then
         PageManager:switchTo("menu")
     end
 end
