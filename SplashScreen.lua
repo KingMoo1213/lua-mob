@@ -4,15 +4,7 @@ local Image = require "Image"
 local AnimationManager = require "AnimationManager"
 local ImageManager = require "ImageManager"
 
-SplashScreen = {}
-setmetatable(SplashScreen, {__index = Page})
-
-function SplashScreen:new()
-    local newInstance = Page:new("Splash Screen", {0.5, 0.5, 0.5})
-    setmetatable(newInstance, self)
-    self.__index = self
-    return newInstance
-end
+SplashScreen = Page:new("Splash Screen", "lightblue")
 
 function SplashScreen:init()
     self.splashImage = Image:new({
