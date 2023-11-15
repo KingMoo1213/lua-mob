@@ -6,12 +6,23 @@ local ImageManager = require "ImageManager"
 SplashScreen = Page:new("Splash Screen", {0.5, 0.5, 0.5})
 
 function SplashScreen:init()
-    local image = ImageManager.get("splash_image")
+    
+    self.splashImage = Image:new({
+        name = "splash_image"
+    })
+
     local screenWidth, screenHeight = love.graphics.getDimensions()
-    local scale = math.min(screenWidth / image:getWidth(), screenHeight / image:getHeight()) 
+    local imageWidth, imageHeight = self.splashImage.image:getWidth(), self.splashImage.image:getHeight()
+
     local imageX = (screenWidth - (image:getWidth()*scale)) / 2
     local imageY = screenHeight
-    local targetY = 0
+    local targetY = 40
+
+    self.splashImage:update({
+            scale = scale,
+            x = imageX,
+            y = imageY
+    })
 
     self.splashAnimation = AnimationManager.createAnimation({
         target = { x = imageX, y = imageY, alpha = 1 },
