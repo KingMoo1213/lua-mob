@@ -1,4 +1,5 @@
 local ColorUtils = require "ColorUtils"
+local FontManager = require "FontManager"
 
 Page = {}
 Page.__index = Page
@@ -12,7 +13,7 @@ function Page:new(name, backgroundColor)
     }
     setmetatable(this, Page)
 
-    this.font = love.graphics.newFont(this.fontSize)
+    this.font = FontManager.getFont("default")
     
     return this
 end
@@ -21,11 +22,11 @@ function Page:init()
     -- Init here
 end
 
-function Page:touchpressed(id, x, y, dx, dy, pressure)
+function Page:pressed(id, x, y, dx, dy, pressure)
     -- implement this in child class
 end
 
-function Page:touchreleased(id, x, y, dx, dy, pressure)
+function Page:released(id, x, y, dx, dy, pressure)
     -- implement this in child class
 end
 

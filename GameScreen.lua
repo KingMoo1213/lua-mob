@@ -1,8 +1,14 @@
 require "Page"
 require "InputManager"
 
-GameScreen = Page:new("Game Screen", {0.5, 0.5, 0.5}) -- Starting with a gray background
-GameScreen.displayText = ""
+local GameScreen = setmetatable({}, {__index = Page})
+GameScreen.__index = GameScreen
+
+function GameScreen:new()
+    local this = setmetatable(Page:new("Game Screen", "pastelorange"), GameScreen)
+    this.displayText = ""
+    return this
+end
 
 function GameScreen:render()
     -- Call the base render method
@@ -20,7 +26,7 @@ function GameScreen:render()
     love.graphics.print(self.displayText, textX, textY)
 end
 
-function GameScreen:touchreleased(touchInfo)
+function GameScreen:released(touchInfo)
     if touchInfo.eventType == "swipe" then
         -- Handle swipe logic
         -- Example: Display the swipe direction

@@ -14,12 +14,23 @@ function AnimationManager.createAnimation(properties, autoStart)
         isPlaying = autoStart or properties.autoStart or false, -- Control immediate start
         isComplete = false
     }
+    if animation.isPlaying or properties.initValues then
+        AnimationManager.InitValues(animation)
+    end
     return animation
 end
 
 function AnimationManager.play(animation)
     animation.isPlaying = true
     animation.isComplete = false
+    AnimationManager.InitValues(animation)
+end
+
+function AnimationManager.InitValues(animation)
+    -- set inital values
+    for prop, propData in pairs(animation.properties) do
+        animation.target[prop] = propData.startValue
+    end
 end
 
 function AnimationManager.pause(animation)

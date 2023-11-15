@@ -4,7 +4,7 @@ InputManager = {}
 function InputManager:init()
     self.isTouching = false
     self.touchTimer = 0
-    self.touchThreshold = 1.0 -- Threshold for long press (in seconds)
+    self.touchThreshold = 0.5 -- Threshold for long press (in seconds)
     self.swipeThreshold = 50 -- Minimum distance in pixels for a swipe to be registered
     self.startX, self.startY = 0, 0
     self.endX, self.endY = 0, 0
@@ -16,13 +16,21 @@ function InputManager:update(dt)
     end
 end
 
-function InputManager:touchpressed(id, x, y, dx, dy, pressure)
+function InputManager:getHoldProgress()
+    if self.isTouching then
+        return self.touchTimer / self.touchThreshold
+    else
+        return 0
+    end
+end
+
+function InputManager:pressed(x, y)
     self.isTouching = true
     self.startX, self.startY = x, y
     self.touchTimer = 0
 end
 
-function InputManager:touchreleased(id, x, y, dx, dy, pressure)
+function InputManager:released(x, y)
     local eventType
     local swipeDirection = nil
     local distanceX = x - self.startX
