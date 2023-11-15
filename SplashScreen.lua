@@ -18,11 +18,11 @@ function SplashScreen:init()
         property = "y",
         startValue = imageY,
         endValue = targetY,
-        duration = 3,
+        duration = 2,
         loopType = "none"
     })
 
-    self.name = imageY + "_" + targetY
+    self.name = imageY .. "_" .. targetY
 end
 
 function SplashScreen:update(dt)
