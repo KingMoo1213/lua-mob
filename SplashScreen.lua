@@ -1,12 +1,20 @@
 require "Page"
 require "InputManager"
+local Image = require "Image"
 local AnimationManager = require "AnimationManager"
 local ImageManager = require "ImageManager"
 
-SplashScreen = Page:new("Splash Screen", {0.5, 0.5, 0.5})
+SplashScreen = {}
+setmetatable(SplashScreen, {__index = Page})
+
+function SplashScreen:new()
+    local newInstance = Page:new("Splash Screen", {0.5, 0.5, 0.5})
+    setmetatable(newInstance, self)
+    self.__index = self
+    return newInstance
+end
 
 function SplashScreen:init()
-    
     self.splashImage = Image:new({
         name = "splash_image"
     })
@@ -14,50 +22,30 @@ function SplashScreen:init()
     local screenWidth, screenHeight = love.graphics.getDimensions()
     local imageWidth, imageHeight = self.splashImage.image:getWidth(), self.splashImage.image:getHeight()
 
-    local imageX = (screenWidth - (image:getWidth()*scale)) / 2
-    local imageY = screenHeight
-    local targetY = 40
+    local scale = math.min(screenWidth / imageWidth, screenHeight / imageHeight)
+    self.splashImage:setScale(scale)
+    self.splashImage:setPosition((screenWidth - imageWidth * scale) / 2, screenHeight)
 
-    self.splashImage:update({
-            scale = scale,
-            x = imageX,
-            y = imageY
+    -- Animation for sliding up and fading in
+    self.animation = AnimationManager.createAnimation({
+        target = self.splashImage,
+        properties = {
+            y = {startValue = screenHeight, endValue = (screenHeight - imageHeight * scale) / 2},
+            alpha = {startValue = 0, endValue = 1}
+        },
+        duration = 3
     })
-
-    self.splashAnimation = AnimationManager.createAnimation({
-        target = { x = imageX, y = imageY, alpha = 1 },
-        property = "y",
-        startValue = imageY,
-        endValue = targetY,
-        duration = 2,
-        loopType = "none"
-    })
-
-    self.name = imageY .. "_" .. targetY
 end
 
 function SplashScreen:update(dt)
-    AnimationManager.update(self.splashAnimation, dt)
+    AnimationManager.update(self.animation, dt)
 
-    if not self.splashAnimation.isPlaying then
+    if self.animation.isCompleted then
         PageManager:switchTo("menu")
     end
 end
 
 function SplashScreen:render()
-    Page.render(self)
-
-    local anim = self.splashAnimation
-    local image = ImageManager.get("splash_image")
-
-    -- Calculate scale factor to fit the image on the screen
-    local screenWidth, screenHeight = love.graphics.getDimensions()
-    local scale = math.min(screenWidth / image:getWidth(), screenHeight / image:getHeight())
-
-    -- Apply the animation's properties and scale to the image
-    love.graphics.setColor(1, 1, 1, anim.target.alpha)
-    love.graphics.draw(image, anim.target.x, anim.target.y, 0, scale, scale)
-    love.graphics.setColor(1, 1, 1, 1) -- Resetting the color
+    Page.render(self) -- Call the base class render method
+    self.splashImage:draw() -- Draw the splash image
 end
-
-
