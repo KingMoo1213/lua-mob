@@ -16,6 +16,9 @@ function SplashScreen:new()
 end
 
 function SplashScreen:init()
+    self.splashbg = Image:new({
+        name = "splash_bg"
+    })
     self.splashImage = Image:new({
         name = "splash_image"
     })
@@ -35,8 +38,15 @@ function SplashScreen:init()
     self.splashImage:setScale(scale)
     self.splashImage:setPosition((screenWidth - imageWidth * scale) / 2, screenHeight)
 
+    --scale splash bg to fill screen
+    local bgscale = math.max(screenWidth / self.splashbg.image:getWidth(), screenHeight / self.splashbg.image:getHeight())
+    self.splashbg:setScale(bgscale)
+    --position splashbg to center
+    self.splashbg:setPosition((screenWidth - self.splashbg.image:getWidth() * bgscale) / 2, (screenHeight - self.splashbg.image:getHeight() * bgscale) / 2)
+
     -- position text bottom center
     self.text:setPosition((screenWidth - self.text.font:getWidth(self.text.text)) / 2, screenHeight - self.text.font:getHeight())
+
 
     -- Animation for sliding up and fading in
     self.animation = AnimationManager.createAnimation({
@@ -77,6 +87,7 @@ end
 
 function SplashScreen:render()
     Page.render(self) -- Call the base class render method
+    self.splashbg:draw() -- Draw the splash background
     self.splashImage:draw() -- Draw the splash image
     self.text:draw() -- Draw the text
 end

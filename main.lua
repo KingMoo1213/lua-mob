@@ -28,6 +28,7 @@ function love.load()
   love.graphics.setBackgroundColor(192/255, 192/255, 192/255) -- silver background
 
   ImageManager.load("splash_image", "assets/raw/splash.png") 
+  ImageManager.load("splash_bg", "assets/raw/splashbg.png")
 
   FontManager.loadFont("default", nil, 48)
   FontManager.loadFont("challenge", "assets/raw/font/ChallengeContour.ttf", 24)
