@@ -1,9 +1,11 @@
+local ImageManager = require "ImageManager"
+
 local Image = {}
 Image.__index = Image
 
 function Image:new(params)
     local this = {
-        image = love.graphics.newImage(params.imagePath),
+        image = ImageManager.get(params.name), -- Get image from ImageManager
         x = params.x or 0,
         y = params.y or 0,
         scaleX = params.scaleX or 1,
