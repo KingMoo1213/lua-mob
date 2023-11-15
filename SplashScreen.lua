@@ -9,7 +9,7 @@ function SplashScreen:init()
     local image = ImageManager.get("splash_image")
     local screenWidth, screenHeight = love.graphics.getDimensions()
     local scale = math.min(screenWidth / image:getWidth(), screenHeight / image:getHeight()) 
-    local imageX = ((screenWidth - image:getWidth()) / 2) *scale
+    local imageX = ((screenWidth*scale) - image:getWidth()) / 2
     local imageY = screenHeight
     local targetY = 0
 
